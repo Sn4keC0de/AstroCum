@@ -47,49 +47,54 @@
     const nextButton = document.getElementById("skip-btn");
     const backButton = document.getElementById("back-btn");
 
-    function escribirTexto(texto, callback) {
-    let i = 0;
-    dialogText.textContent = "";
-    escribiendo = true;
-    nextButton.disabled = true;
-    backButton.disabled = true;
+    const sonidoLetra = new Audio('./aud/Tone.wav');
+    sonidoLetra.volume = "0.3"
 
-    const intervalo = setInterval(() => {
-        dialogText.textContent += texto.charAt(i);
-        i++;
-        if (i >= texto.length) {
-        clearInterval(intervalo);
-        escribiendo = false;
-        actualizarBotones();
-        if (callback) callback();
-        }
-    }, 30);
+    function escribirTexto(texto, callback) {
+        let i = 0;
+        dialogText.textContent = "";
+        escribiendo = true;
+        nextButton.disabled = true;
+        backButton.disabled = true;
+        
+        const intervalo = setInterval(() => {
+            dialogText.textContent += texto.charAt(i);
+            i++;
+            sonidoLetra.currentTime = 0; // Reinicia para que suene rápido
+            sonidoLetra.play();
+            if (i >= texto.length) {
+            clearInterval(intervalo);
+            escribiendo = false;
+            actualizarBotones();
+            if (callback) callback();
+            }
+        }, 60);
     }
 
     function actualizarBotones() {
-    nextButton.disabled = false;
-    backButton.disabled = indice <= 1;
+        nextButton.disabled = false;
+        backButton.disabled = indice <= 1;
     }
 
     function siguienteDialogo() {
-    if (escribiendo) return;
+        if (escribiendo) return;
 
-    if (indice < dialogos.length) {
-        escribirTexto(dialogos[indice]);
-        indice++;
-    } else {
-        window.location.href = "album.html";
-    }
+        if (indice < dialogos.length) {
+            escribirTexto(dialogos[indice]);
+            indice++;
+        } else {
+            window.location.href = "album.html";
+        }
     }
 
     function dialogoAnterior() {
-    if (escribiendo) return;
+        if (escribiendo) return;
 
-    if (indice > 1) {
-        indice -= 2; // retrocedemos uno y luego avanzamos con escribirTexto
-        escribirTexto(dialogos[indice]);
-        indice++;
-    }
+        if (indice > 1) {
+            indice -= 2; // retrocedemos uno y luego avanzamos con escribirTexto
+            escribirTexto(dialogos[indice]);
+            indice++;
+        }
     }
 
     nextButton.addEventListener("click", siguienteDialogo);

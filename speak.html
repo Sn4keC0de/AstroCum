@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/speak.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="sprite-container">
+        <img src="./img/Goat_Idle.webp" alt="">
+    </div>
+
+    <div class="dialog-box">
+
+        <div id="text-container">
+            <span id="text-dialog">prueba de texto asdshjadjhsdjhsdhjjsdjad</span>
+        </div>
+
+
+        <button class="back-btn" id="back-btn" disabled>
+            <span class="back-text">< Back</span>
+        </button>
+
+        <button class="skip-btn" id="skip-btn" disabled>
+            <span class="skip-text">Next ></span>
+        </button>
+
+    </div>
+</body>
+</html>
+
+<script>
+    const dialogos = [
+    "Hola, bienvenido a esta historia.",
+    "Aquí aprenderás muchas cosas interesantes.",
+    "¿Estás listo para continuar?",
+    "¡Vamos allá!"
+    ];
+
+    let indice = 0;
+    let escribiendo = false;
+
+    const dialogText = document.getElementById("text-dialog");
+    const dialogBox = document.getElementById("text-container");
+    const nextButton = document.getElementById("skip-btn");
+    const backButton = document.getElementById("back-btn");
+
+    const sonidoLetra = new Audio('./aud/Tone.wav');
+    sonidoLetra.volume = "0.3"
+
+    function escribirTexto(texto, callback) {
+        let i = 0;
+        dialogText.textContent = "";
+        escribiendo = true;
+        nextButton.disabled = true;
+        backButton.disabled = true;
+        
+        const intervalo = setInterval(() => {
+            dialogText.textContent += texto.charAt(i);
+            i++;
+            sonidoLetra.currentTime = 0; // Reinicia para que suene rápido
+            sonidoLetra.play();
+            if (i >= texto.length) {
+            clearInterval(intervalo);
+            escribiendo = false;
+            actualizarBotones();
+            if (callback) callback();
+            }
+        }, 60);
+    }
+
+    function actualizarBotones() {
+        nextButton.disabled = false;
+        backButton.disabled = indice <= 1;
+    }
+
+    function siguienteDialogo() {
+        if (escribiendo) return;
+
+        if (indice < dialogos.length) {
+            escribirTexto(dialogos[indice]);
+            indice++;
+        } else {
+            window.location.href = "album.html";
+        }
+    }
+
+    function dialogoAnterior() {
+        if (escribiendo) return;
+
+        if (indice > 1) {
+            indice -= 2; // retrocedemos uno y luego avanzamos con escribirTexto
+            escribirTexto(dialogos[indice]);
+            indice++;
+        }
+    }
+
+    nextButton.addEventListener("click", siguienteDialogo);
+    backButton.addEventListener("click", dialogoAnterior);
+
+    // Inicia con el primer diálogo
+    escribirTexto(dialogos[indice]);
+    indice++;
+</script>

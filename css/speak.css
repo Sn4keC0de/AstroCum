@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Minecraft";
+    src: url(../fonts/Minecraft.ttf);
+}
+
+body {
+    background-image: url(../img/cult-of-the-lamb-zqi55xq4soncfj3j.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.sprite-container {
+    width: 600px;
+    height: 700px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+
+    z-index: 4;
+}
+
+.sprite-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.dialog-box {
+    width: 800px;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.767);
+    border: 3px solid blue;
+    backdrop-filter: blur(4px);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+
+    padding: 10px;
+
+    z-index: 5;
+
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+
+#text-container {
+    height: 220px;
+    width: 100%;
+}
+
+#text-dialog {
+    font-size: 1.1rem;
+    font-family: "Minecraft";
+    color: #fff;
+    font-weight: 100;
+}
+
+.back-btn {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+
+.skip-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.back-btn, .skip-btn {
+    width: 150px;
+    height: 40px;
+    background-color: #ffffff63;
+    border: 0px;
+    
+    font-family: "Minecraft";
+    color: #fff;
+    font-size: 1rem;
+
+    line-height: 40px;
+    text-align: center;
+
+    &:active {
+        background-color: blue;
+    }
+}

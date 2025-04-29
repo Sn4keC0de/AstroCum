@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Minecraft";
+    src: url(../fonts/Minecraft.ttf);
+}
+
+body {
+    background-image: url(../img/cult-of-the-lamb-zqi55xq4soncfj3j.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+#libro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+  }
+  
+  #doble-pagina {
+    display: flex;
+    border: 2px solid #333;
+    background: #faf0e6;
+    box-shadow: 0 0 10px #00000033;
+  }
+  
+  .pagina {
+    width: 300px;
+    height: 400px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .pagina img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #444;
+    transition: transform 0.2s;
+  }
+  
+  #modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .oculto {
+    display: none !important;
+  }
+  
+  .tarjeta-3d {
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .tarjeta-3d .cara {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tarjeta-3d .frontal {
+    z-index: 2;
+    background: white;
+  }
+  
+  .tarjeta-3d .trasera {
+    transform: rotateY(180deg);
+    background: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .rotado {
+    transform: rotateY(180deg);
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  #imagen-expandida {
+    width: 100%;
+    height: 100%;
+  }

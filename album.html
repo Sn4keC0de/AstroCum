@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/album.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="libro">
+        <button id="prev-page">◀</button>
+      
+        <div id="doble-pagina">
+          <div class="pagina izquierda" id="pagina-izquierda"></div>
+          <div class="pagina derecha" id="pagina-derecha"></div>
+        </div>
+      
+        <button id="next-page">▶</button>
+      </div>
+      
+      <!-- Modal para imagen expandida y 3D -->
+      <div id="modal" class="oculto">
+        <div class="tarjeta-3d" id="tarjeta">
+          <div class="cara frontal">
+            <img id="imagen-expandida" src="" alt="Imagen ampliada" />
+          </div>
+          <div class="cara trasera">
+            <p id="mensaje-detras">Mensaje secreto</p>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
+
+<script>
+    const paginas = [
+    [ // Página par: izquierda (0) y derecha (1)
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 1" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 2" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 3" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 4" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 5" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje de img 6" }
+    ],
+    [ // Página par siguiente
+      { src: "./img/800x800.jpg", mensaje: "Mensaje oculto" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje antiguo" },
+      { src: "./img/800x800.jpg", mensaje: "Mensaje secreto" },
+      { src: "./img/800x800.jpg", mensaje: "Más pistas" },
+      { src: "./img/800x800.jpg", mensaje: "¡Bien hecho!" },
+      { src: "./img/800x800.jpg", mensaje: "Sigue explorando" }
+    ]
+  ];
+
+  let paginaActual = 0;
+
+  const izquierda = document.getElementById("pagina-izquierda");
+  const derecha = document.getElementById("pagina-derecha");
+  const modal = document.getElementById("modal");
+  const imagenExpandida = document.getElementById("imagen-expandida");
+  const mensajeDetras = document.getElementById("mensaje-detras");
+  const tarjeta = document.getElementById("tarjeta");
+
+  function cargarDoblePagina(index) {
+    izquierda.innerHTML = "";
+    derecha.innerHTML = "";
+    const pagina = paginas[index];
+
+    if (!pagina) return;
+
+    pagina.slice(0, 3).forEach((item) => {
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.addEventListener("click", () => abrirImagen(item));
+      izquierda.appendChild(img);
+    });
+
+    pagina.slice(3, 6).forEach((item) => {
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.addEventListener("click", () => abrirImagen(item));
+      derecha.appendChild(img);
+    });
+  }
+
+  function abrirImagen(item) {
+    imagenExpandida.src = item.src;
+    mensajeDetras.textContent = item.mensaje;
+    tarjeta.classList.remove("rotado");
+    modal.classList.remove("oculto");
+  }
+
+  tarjeta.addEventListener("click", () => {
+    tarjeta.classList.toggle("rotado");
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.add("oculto");
+    }
+  });
+
+  document.getElementById("next-page").addEventListener("click", () => {
+    if (paginaActual < paginas.length - 1) {
+      paginaActual++;
+      cargarDoblePagina(paginaActual);
+    }
+  });
+
+  document.getElementById("prev-page").addEventListener("click", () => {
+    if (paginaActual > 0) {
+      paginaActual--;
+      cargarDoblePagina(paginaActual);
+    }
+  });
+
+  // Cargar la primera doble página
+  cargarDoblePagina(paginaActual);
+</script>

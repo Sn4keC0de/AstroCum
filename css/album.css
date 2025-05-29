@@ -90,8 +90,8 @@ body {
   }
   
   .tarjeta-3d {
-    width: 366px;
-    height: 445px;
+    width: 732px;
+    height: 890px;
     perspective: 1000px;
     cursor: pointer;
     position: relative;

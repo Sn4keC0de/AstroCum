@@ -130,10 +130,10 @@ body {
   }
 
   .trasera button, .trasera a {
-    width: 200px;
-    height: 34px;
+    width: 250px;
+    height: 50px;
 
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 600;
     font-family: "omori";
   }
@@ -150,7 +150,7 @@ body {
   }
 
   #mensaje-detras {
-    font-size: 1.9rem;
+    font-size: 2.8rem;
     font-family: "omori";
   }
 

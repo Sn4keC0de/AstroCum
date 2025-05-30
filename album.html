@@ -4,54 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/album.css">
+    <link rel="icon" href="./img/ico.png" type="image/x-icon">
     <title>Document</title>
 </head>
 <body>
-    <div id="libro">
-        <button class="pageBtm" id="prev-page">◀</button>
-      
-        <div id="doble-pagina">
-          <div class="pagina izquierda" id="pagina-izquierda"></div>
-          <div class="pagina derecha" id="pagina-derecha"></div>
-        </div>
-      
-        <button class="pageBtm" id="next-page">▶</button>
+  <iframe width="0" height="0" src="./aud/Storybook.ogg" frameborder="0" allowfullscreen></iframe>
+  <div id="libro">
+    <button class="pageBtm" id="prev-page">◀</button>
+  
+    <div id="doble-pagina">
+      <div class="pagina izquierda" id="pagina-izquierda"></div>
+      <div class="pagina derecha" id="pagina-derecha"></div>
+    </div>
+  
+    <button class="pageBtm" id="next-page">▶</button>
+  </div>
+  
+  <!-- Modal para imagen expandida y 3D -->
+  <div id="modal" class="oculto">
+    <div class="tarjeta-3d" id="tarjeta">
+      <div class="cara frontal">
+        <img id="imagen-expandida" src="" alt="Imagen ampliada" />
       </div>
-      
-      <!-- Modal para imagen expandida y 3D -->
-      <div id="modal" class="oculto">
-        <div class="tarjeta-3d" id="tarjeta">
-          <div class="cara frontal">
-            <img id="imagen-expandida" src="" alt="Imagen ampliada" />
-          </div>
-          <div class="cara trasera">
-            <p id="mensaje-detras">Mensaje secreto</p>
-            <a href="./img/polaroidTest2.png" download>
-              <button>Descargar Dibujito</button>
-            </a>
-          </div>
-        </div>
+      <div class="cara trasera">
+        <p id="mensaje-detras">Mensaje secreto</p>
+        <a id="descargaImg" href="#" download>
+          <button>Descargar Dibujito</button>
+        </a>
       </div>
+    </div>
+  </div>
 </body>
 </html>
 
 <script>
     const paginas = [
-    [ // Página par: izquierda (0) y derecha (1)
-      { src: "./img/polaroidTest.png", mensaje: "Ya un año mas viejo, no lo puedo creer. Astrito, me pone muy feliz el poder compartir este día tan especial con alguien tan increíble como lo sos vos. Una de mis mas grandes inspiraciones y uno de mis mas cercanos amigos. Vivimos tantos momentos icónicos como el de cantar canciones de viejas dolidas hasta tarde en vc, hasta el poder contarnos las cosas que nos preocupaban o hacían sentir mal, sin contar muchísimas lindas experiencias mas. Sos increíble Astro, tenes una vibra tan brillante que tu presencia es muy notable. Espero que podamos seguir caminando por el mismo camino muuuchos años más, crear muchos recuerdos y siempre contar con el apoyo del otro. Feliz cumple chinchulin, mereces el mejor de los dias ✨", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest2.png", mensaje: "No hace falta tener mil recuerdos icónicos para saber lo importante que eres para mí. A veces, el simple hecho de que una persona esté, de que exista y siga adelante, es suficiente para ocupar un lugar enorme en el corazón. Aunque no hablemos todo el tiempo, eres uno de esos pilares silenciosos que habitan en mi corazoncito, y te aprecio más de lo que quizás imaginas. Te admiro mucho,por lo que eres, por todo lo que cargas, y aún así decides seguir caminando. Astrito, gracias por ser tú y por ser parte de esos dúos de personajes en los musicales y jueguitos que tanto amamos. JAJAJA  Feliz cumpleaños! 🩷 que la vida te devuelva un poquito de todo lo bueno que das.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest3.png", mensaje: "¿Puedes creer que nos conocimos en un elenco que resultó ser un desastre? Me alegra que haya sido así. Hemos compartido momentos increíbles y me has enseñado tanto con la bondad qué posees, pero más que todo, un par de palabras mágicas resuenan en mi mente aún a día de hoy: “COLALE, MUEVE TU COLALE”.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest4.png", mensaje: "El día más hermoso que he tenido fue cuando te conocí, llenaste mi vida de luz y color. Tengo muchos recuerdos preciosos contigo, pero el más precioso fue cuando conectamos desde el primer día sin saber que esa noche te convertirías en una persona tan especial en mi vida. Suena cursi, pero nunca pensé que te ibas a volver tan importante para mí. Entraste a mi corazón sin previo aviso y te instalaste; eres alguien tan fundamental en mi vida que me alegro de que seas parte de ella. Sin importar cuántas cosas hemos pasado, seguimos estando juntos recorriendo el mismo camino. Espero que en un futuro sigamos siendo una amistad tan linda tanto en las buenas como en las malas. Te quiero mucho, atritobomnito. ¡Besotes al cumpleañero! FELIZ CUMPLEAÑOS CORAZÓN!!! 🎉", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest5.png", mensaje: "Al igual que las estrellas fugaces, apareciste de la nada, con un brillo destellante y acogedor, pero no para cumplir los deseos de nadie. Sino brillar, estar, acompañar, querer, incluso en algunas ocasiones, amar. El mundo es cruel con aquel que porta la antorcha de la bondad, de la alegría. Pero aún así decides cargarlo y cada día, ser una mejor persona, ser alguien con quién contar. Alguien que sus palabras se convierten en abrazos al alma, caricias al corazón. Una persona extraordinaria, soñadora, particular. \nTodo el mundo tiene su propia belleza. Pero aún así, son aquellas cosas que no buscan atención, las más preciosas. Tu amistad fue un regalo para mí ser, y estoy feliz de poder verte crecer, con todo el peso de la vida en tu espalda, levantándote cada día para enfrentar el día. No hay nada más valiente que estar ahí. \nMi momento más preciado, de todos los que tenemos, fue en el que estábamos estudiando la primera vez. No había abierto un libro de filosofía hace como 8 años, y ni siquiera entendí la mitad de las cosas que estaba leyendo. Pero empezamos a charlar, nos contamos bastantes cosas, me sentí muy feliz al respecto. Me sentí querido. Es como si todo aquello que me afectaba, se hubiera parado durante un ratito. Me quise quedar, porque así de especial es tu presencia en la vida de la gente. Hiciste que esa actividad, que para mí era tan difícil, fuera de lo más especial que vivimos juntos. \nTe deseo todo lo bueno en éste mundo y más. Que todo lo que quieras, se te de. Pero sé que cumplirás todo lo que quieras. Te adoro, feliz cumpleaños Stella.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
+    [
+      { src: "./img/polaroidTest.png", download: "./img/ShiroSeren.png", mensaje: "Ya un año mas viejo, no lo puedo creer. Astrito, me pone muy feliz el poder compartir este día tan especial con alguien tan increíble como lo sos vos. Una de mis mas grandes inspiraciones y uno de mis mas cercanos amigos. Vivimos tantos momentos icónicos como el de cantar canciones de viejas dolidas hasta tarde en vc, hasta el poder contarnos las cosas que nos preocupaban o hacían sentir mal, sin contar muchísimas lindas experiencias mas. Sos increíble Astro, tenes una vibra tan brillante que tu presencia es muy notable. Espero que podamos seguir caminando por el mismo camino muuuchos años más, crear muchos recuerdos y siempre contar con el apoyo del otro. Feliz cumple chinchulin, mereces el mejor de los dias ✨", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest2.png", download: "./img/Astro_FINISH.png", mensaje: "No hace falta tener mil recuerdos icónicos para saber lo importante que eres para mí. A veces, el simple hecho de que una persona esté, de que exista y siga adelante, es suficiente para ocupar un lugar enorme en el corazón. Aunque no hablemos todo el tiempo, eres uno de esos pilares silenciosos que habitan en mi corazoncito, y te aprecio más de lo que quizás imaginas. Te admiro mucho,por lo que eres, por todo lo que cargas, y aún así decides seguir caminando. Astrito, gracias por ser tú y por ser parte de esos dúos de personajes en los musicales y jueguitos que tanto amamos. JAJAJA  Feliz cumpleaños! 🩷 que la vida te devuelva un poquito de todo lo bueno que das.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest3.png", download: "./img/jochi_astro_recuerdo.png", mensaje: "¿Puedes creer que nos conocimos en un elenco que resultó ser un desastre? Me alegra que haya sido así. Hemos compartido momentos increíbles y me has enseñado tanto con la bondad qué posees, pero más que todo, un par de palabras mágicas resuenan en mi mente aún a día de hoy: “COLALE, MUEVE TU COLALE”.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest4.png", download: "./img/MikiSeren.png", mensaje: "El día más hermoso que he tenido fue cuando te conocí, llenaste mi vida de luz y color. Tengo muchos recuerdos preciosos contigo, pero el más precioso fue cuando conectamos desde el primer día sin saber que esa noche te convertirías en una persona tan especial en mi vida. Suena cursi, pero nunca pensé que te ibas a volver tan importante para mí. Entraste a mi corazón sin previo aviso y te instalaste; eres alguien tan fundamental en mi vida que me alegro de que seas parte de ella. Sin importar cuántas cosas hemos pasado, seguimos estando juntos recorriendo el mismo camino. Espero que en un futuro sigamos siendo una amistad tan linda tanto en las buenas como en las malas. Te quiero mucho, atritobomnito. ¡Besotes al cumpleañero! FELIZ CUMPLEAÑOS CORAZÓN!!! 🎉", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest5.png", download: "./img/enderreg.png", mensaje: "Al igual que las estrellas fugaces, apareciste de la nada, con un brillo destellante y acogedor, pero no para cumplir los deseos de nadie. Sino brillar, estar, acompañar, querer, incluso en algunas ocasiones, amar. El mundo es cruel con aquel que porta la antorcha de la bondad, de la alegría. Pero aún así decides cargarlo y cada día, ser una mejor persona, ser alguien con quién contar. Alguien que sus palabras se convierten en abrazos al alma, caricias al corazón. Una persona extraordinaria, soñadora, particular. \nTodo el mundo tiene su propia belleza. Pero aún así, son aquellas cosas que no buscan atención, las más preciosas. Tu amistad fue un regalo para mí ser, y estoy feliz de poder verte crecer, con todo el peso de la vida en tu espalda, levantándote cada día para enfrentar el día. No hay nada más valiente que estar ahí. \nMi momento más preciado, de todos los que tenemos, fue en el que estábamos estudiando la primera vez. No había abierto un libro de filosofía hace como 8 años, y ni siquiera entendí la mitad de las cosas que estaba leyendo. Pero empezamos a charlar, nos contamos bastantes cosas, me sentí muy feliz al respecto. Me sentí querido. Es como si todo aquello que me afectaba, se hubiera parado durante un ratito. Me quise quedar, porque así de especial es tu presencia en la vida de la gente. Hiciste que esa actividad, que para mí era tan difícil, fuera de lo más especial que vivimos juntos. \nTe deseo todo lo bueno en éste mundo y más. Que todo lo que quieras, se te de. Pero sé que cumplirás todo lo que quieras. Te adoro, feliz cumpleaños Stella.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest6.png", download: "./img/nax1.jpeg", mensaje: "Mercado asoL! Ha pasado mucho tiempo desde la última vez que pudimos convivir juntos, pero a pesar de el tiempo, sigues siendo unas de las personas más cercanas y que más valoro en mi vida, agradezco mucho el haberte encontrado y el seguir manteniendo el contacto contigo", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
     ],
-    [ // Página par siguiente
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
-      { src: "./img/polaroidTest.png", mensaje: "Mensaje de img 1", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
+    [
+      { src: "./img/polaroidTest7.png", download: "./img/nax2.jpeg", mensaje: "Aún recuerdo esa noche en hipernova, llegando por casualidad al VC y empezando a exponer acerca de mi proyecto de computación, desde ahí nuestra pequeña historia empezó, una historia que nos ha llevado a través de mucho, risas, lágrimas y muchísimas formas de sentir una amistad como nunca la había experimentado, siempre hemos estado el uno para el otro tanto en las buenas y en las malas, y quiero que sepas que así seguirá siendo.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest8.png", download: "./img/nax3.jpeg", mensaje: "Te quiero muchísimo Astro gracias por seguir, por seguir en mi vida y por seguir saliendo adelante, jamás dejes que ese brillo se apague, eres alguien increíble y te quiero demasiado, gracias por todo. Feliz cumpleaños 🎂 💙", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest9.png", download: "./img/Keiken&Seren.png", mensaje: "Abril, 2024. Vimos Heathers juntos, para mí, fue mi primera vez. Este momento, cuando alguien comparte sus aficiones conmigo, además de su música... es un recuerdo que jamás ser irá. Mi love language es la música, gracias por compartirme un pedacito de ti. Gracias, Astro. ❤️‍🔥", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest10.gif", download: "./img/regalo_asrto.gif", mensaje: "Seguro vos no te acordás de esto, porque sos un pelotudo de mierda. Hace un año y tres meses, aproximadamente, nos quedamos conversando acerca de nosotros hasta re tarde, como hasta las 8 de la mañana. Antes de ese momento solo habíamos interactuado muy superficialmente, nos llevábamos bien, pero nada más allá. Pero esa noche, hablamos muy sinceramente, que nos apasiona, gustos favoritos, etc, etc. Lo que más me acuerdo, es cuando me contaste las cosas horribles que pasaste los años anteriores y eran muy parecidas a situaciones que a mí me había tocado vivir. Capaz no las situaciones en sí, pero las consecuencias que tuvimos de esas experiencias fueron LAS MISMAS. Los dos tomamos esas experiencias y las transitamos de la misma manera, con el mismo dolor y encontrando las mismas respuestas. Como mencione antes, sentí que trascendimos de esa relación superficial y de “compartimos gustos y espacio común”. Pasamos a algo más íntimo, más cercanos. Esa noche, sentí que Mika y Luciano se acercaron a conversar. A pesar de que seas un inútil hijo de puta, yo te quiero muchísimo y siempre vas a poder contar conmigo amiguito. Todas putas, A LA MIERDA 📢📢📢", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest11.png", download: "./img/Astro_Seprex_2.jpeg", mensaje: "Astrito, ya casi 3 años conociendonos... Algo que me es surreal pues jamás perdimos amistad o esa conexión que nosotros llamamos 'de tal palo tal astilla' a pesar de la cantidad infinita de tiempo sin hablar que hemos pasado. Eres alguien que se que sin importar que pase voy a poder volver y voy a tener tus brazos esperándome. ", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest12.png", download: "./img/47_sin_titulo_20250529201522.png", mensaje: "Feliz cumple mi flor amarilla, querida flor amarilla. Feliz cumpleaños a la persona que ilumina mi vida. Eres un regalo precioso para mí y te agradezco por ser mi amigo. Que este día sea tan brillante como tú.", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
+    ],
+    [
+      { src: "./img/polaroidTest13.png", download: "./img/Maimai__Astro.png", mensaje: "Han pasado más de 4 años (casi 5) desde que te conozco, has estado en mis buenos como malos momentos y no tengo las palabras suficientes como para describir mi genuino cariño a ti. Soy muy mala expresándome pero te agradezco por estar a mi lado en incluso momentos en los que sentía que no lo merecía. Aunque varios de mis recuerdos estén algo bloqueados, eres de esas amistades que jamás olvidaré y cambiaron mi mundo para bien. No sé cómo en un solo texto podría describir todos estos años en los que hemos convivido… desde risas, árboles genealógicos bien bizarros, el altar donde mapas y yo te lamíamos las patas adorándote como diosa para la bendición en el gacha de Genshin, cuando jugábamos en el server de cierta persona, la múltiples pijamadas donde mi computadora siempre ardía al amanecer, incluso aún recuerdo que fuiste mi persona con la que abrí el cofre de corazón en liyue y la captura de ti (yoimiya) haciendo como que empujabas la silla de ruedas( que solo era una silla) mía (zhongli) Si… hemos pasado muchas cosas pero también sé que no todo el tiempo fueron buenos, pero hemos crecido y gracias a estos nuevos aprendizajes somos quienes somos. Aunque en estos días no hemos convivido como me gustaría y tengo un sentimiento muy fuerte de nostalgia, me alegra que aún hoy en día pueda ser tu amiga y sabes que eso no cambiará Me alegra que nos hayamos conocido en el gremio, no sabes lo feliz que fui cuando fuiste moderador, amé trabajar contigo en cada proyecto y si algún día lo necesitas estoy acá para ser sobreexplotada jajaja El punto es que agradezco mucho que a pesar de las limitaciones de la distancia, el internet nos haya hecho tan cercanos. Es gracioso porque incluso tú nombre sirve bien para describirte, un astro… una estrella brillante que ilumina nuestras vidas y la hace más amena. Gracias por existir y creo que puedo hablar por todos que te amamos mucho y te deseamos lo mejor en tu vida. Cumple muchos años más mi vida! Muchos muchos más!", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest14.png", download: "./img/Astro_Seprex_1.jpeg", mensaje: "Creo que no hace falta que connote lo importante que eres para mí cuando tu ya sabes que a cada rato te menciono con mis otras amistades y recalco que eres una persona que me marco muy fuerte, tanto así que desde 2022 guardo una carpeta con cada pequeño dibujito que haz hecho donde estoy, de verdad no tienes idea de como aprecio y atesoro cada pequeño momento o recuerdo que dejas en mí", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest15.png", download: "./img/Astro_Seprex_4.jpeg", mensaje: "pero bueno, regresando al presente la última y más importante marca que dejaste en mí fue la que actualmente me permite avanzar, de hecho, fue cuando hablamos que tuve un tema y pues, acabamos de cursis, y me llamaste por mi nombre, me dijiste que me querías y pues- toda esa charla. Eres alguien que dejo una estrellita marcada en mi piel, mi psique y mi corazón, te quiero muchisimo Astro, FELIZ CUMPLE ÑEHEHEHEHEHHEHE", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest16.png", download: "./img/LenAstro.png", mensaje: "No entiendo nada ¿Cuándo el Club de los 18 se convirtió en el Club de los 21? ¿Dónde quedó la juventud eterna de Mickey, MayMay, tú y yo? ¿En qué momento nos volvimos tan cercanos? Y por qué siento que el francés tuvo algo que ver con eso. En fin, lo único que sé es que siempre me río al recordar que pensabas que habían matado a Santa con un petardo ¡Feliz Navidad!", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest17.png", download: "./img/ASTRO_CUM_PLEANOS.png", mensaje: "ASTRITOOO FELIZ CUMPLEAÑOS!!! No sabes cuanto te adoro demasiado desde que te conozco. Tal vez no hablemos demasiado, pero sé que eres una persona maravillosa, una estrella que ilumina la vida de todo aquel que te conozca. Recuerdo cuando nos pusimos a leer Marionetta y desde ahí no sabes lo mucho que te agradezco que nos hicieras leerlo DJASHDJAHS AMO MARIONETTA CON TODA MI ALMA Y Y Y Y TRISTE QUE TENER QUE ESPERAR LA SIGUIENTE TEMPORADA;;;; ejem, mil gracias. Se le adora demasiado y espero pases un feliz cumpleaños muy lindo. Muaks, besotes astrales", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest19.png", download: "./img/CUMPLASTRO_FRAN.png", mensaje: "Sinceramente me agarran descolocado si me toca elegir algún momento en específico de los tantos que compartimos estos años de juntos, pero si de algo estoy seguro, es que siempre estuviste ahí para todos a tu manera, ya sea con un mensajito o brindando tu compañía por llamada; (Y estoy seguro que muchas veces te hubiera gustado cruzar la pantalla de ese celular para abrazarnos hasta olvidarnos de todo ese peso que cargamos.) Pero de mi parte, una virtud tuya que vale oro es el estar siempre dispuesto a hacer lo que sea para ver a tus amigos con una sonrisa de oreja a oreja, incluso si se tratase de ver cosas un tanto... bizarras", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
+    ],
+    [
+      { src: "./img/polaroidTest20.png", download: "./img/Astro_bb.png", mensaje: "Feliz cumpleaños Astrito precioso ❤️ Gracias por ser tan hermoso con todos y ser alguien tan amable. Me siento muy feliz de hoy en día poder verte diariamente y considerarte mi amigo c': ¡Te voy a abrazar mucho cuando nos veamos! Pd: tee regalo una Fawnito de peluche en este dibujito, espero que te guste porque soy muy Noob dibujando pipipi FELIZ CUMPLEAÑOOOSSS", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 },
+      { src: "./img/polaroidTest21.png", download: "./img/atlas_astro_robin.png", mensaje: "Aquella noche estuve feliz de ayudar a nuevas personitas a cumplir un deseo para un ser cercano, pero lo que jamas creí, es que una de esas personitas se haria tan especial para mi al pasar el tiempo, no tienes idea la maravillosa persona que eres y lo genial que sos con cada aparicion que haces, te adoro demasiado astro, gracias por tanto. Espero que todos tus deseos se cumplan y puedas tener toda esa felicidad que mereces, disfruta tu dia especial y sigue mejorando papu, nadie puede quitar esa bella sonrisa que tienes. Feliz cumpleaños astrito god ✨", x: (Math.random() - 0.5) * 20, y: (Math.random() - 0.5) * 20, r: (Math.random() - 0.5) * 20 }
     ]
   ];
 
@@ -102,6 +116,7 @@
     mensajeDetras.textContent = item.mensaje;
     tarjeta.classList.remove("rotado");
     modal.classList.remove("oculto");
+    document.getElementById("descargaImg").href = item.download;
   }
 
   tarjeta.addEventListener("click", () => {
@@ -144,9 +159,9 @@
     fotos.forEach((foto, index) => {
       // Posiciones base (puedes cambiarlas según tu diseño)
       const posiciones = [
-        { top: '8%', left: '10%' },
-        { top: '36%', left: '55%' },
-        { top: '65%', left: '15%' },
+        { top: '7%', left: '8%' },
+        { top: '35%', left: '57%' },
+        { top: '62%', left: '15%' },
       ];
 
       const base = posiciones[index];
